@@ -3,882 +3,140 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b1f33" />
+  <meta name="theme-color" content="#071521" />
   <meta name="description" content="인천성산교회 웹페이지 개편 제안 프레젠테이션" />
   <title>인천성산교회 웹페이지</title>
   <style>
     :root {
-      --navy-950: #071521;
-      --navy-900: #0b1f33;
-      --navy-800: #12324f;
-      --navy-700: #1d496e;
-      --blue-300: #9bc9e4;
-      --cream: #f8f3e8;
-      --paper: #fffdf8;
-      --gold: #d7ad5b;
-      --gold-soft: #f2dfae;
-      --green: #2f8f6b;
-      --green-soft: #dff3ea;
-      --gray-500: #718096;
-      --gray-200: #dce3ea;
-      --shadow: 0 24px 70px rgba(2, 15, 28, 0.2);
-    }
-
-    * { box-sizing: border-box; }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-      background: var(--navy-950);
-      color: var(--navy-900);
-      font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      word-break: keep-all;
-    }
-
-    button,
-    a { font: inherit; }
-
-    .deck {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      isolation: isolate;
-    }
-
-    .deck::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      background:
-        radial-gradient(circle at 15% 20%, rgba(155, 201, 228, 0.2), transparent 34%),
-        radial-gradient(circle at 82% 76%, rgba(215, 173, 91, 0.18), transparent 28%),
-        linear-gradient(145deg, #06121f 0%, #0b2238 52%, #102d49 100%);
-    }
-
-    .deck::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      opacity: 0.18;
-      background-image:
-        linear-gradient(30deg, transparent 48%, rgba(255,255,255,.22) 49%, transparent 50%),
-        linear-gradient(150deg, transparent 48%, rgba(255,255,255,.12) 49%, transparent 50%);
-      background-size: 80px 138px;
-    }
-
-    .slide {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      padding: clamp(24px, 4vw, 64px);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateX(5%) scale(0.985);
-      transition: opacity 420ms ease, transform 520ms cubic-bezier(.2,.75,.2,1), visibility 0s linear 520ms;
-    }
-
-    .slide.is-active {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(0) scale(1);
-      transition-delay: 0s;
-    }
-
-    .slide.is-before {
-      transform: translateX(-5%) scale(0.985);
-    }
-
-    .canvas {
-      position: relative;
-      width: min(1280px, 100%);
-      height: min(720px, calc(100vh - 48px));
-      min-height: 560px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: clamp(22px, 2vw, 34px);
-      background: rgba(255, 253, 248, 0.97);
-      box-shadow: var(--shadow);
-    }
-
-    .canvas::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: .25;
-      background-image: radial-gradient(rgba(11,31,51,.16) .65px, transparent .65px);
-      background-size: 18px 18px;
-      mask-image: linear-gradient(to bottom, #000, transparent 55%);
-    }
-
-    .slide-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      padding: clamp(38px, 5vw, 72px);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      width: fit-content;
-      margin: 0 0 16px;
-      color: var(--navy-700);
-      font-size: clamp(13px, 1.2vw, 17px);
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 28px;
-      height: 3px;
-      border-radius: 99px;
-      background: var(--gold);
-    }
-
-    h1,
-    h2,
-    h3,
-    p { margin-top: 0; }
-
-    h1 {
-      margin-bottom: 24px;
-      color: var(--navy-900);
-      font-size: clamp(48px, 6.8vw, 94px);
-      line-height: 1.04;
-      letter-spacing: -.055em;
-    }
-
-    h2 {
-      margin-bottom: 14px;
-      color: var(--navy-900);
-      font-size: clamp(34px, 4.2vw, 58px);
-      line-height: 1.1;
-      letter-spacing: -.045em;
-    }
-
-    .lead {
-      max-width: 890px;
-      color: #3b5165;
-      font-size: clamp(18px, 1.9vw, 26px);
-      line-height: 1.6;
-    }
-
-    .muted { color: var(--gray-500); }
-    .accent { color: var(--navy-700); }
-    .gold { color: #a9781b; }
-
-    /* Slide 1 */
-    .cover .canvas {
-      color: white;
-      background:
-        linear-gradient(110deg, rgba(7,21,33,.98) 0%, rgba(11,31,51,.96) 56%, rgba(19,56,87,.9) 100%);
-    }
-
-    .cover .canvas::before {
-      opacity: .26;
-      background-image:
-        linear-gradient(60deg, transparent 47%, rgba(255,255,255,.2) 48%, transparent 49%),
-        linear-gradient(120deg, transparent 47%, rgba(255,255,255,.12) 48%, transparent 49%);
-      background-size: 110px 190px;
-      mask-image: none;
-    }
-
-    .cover .slide-inner {
-      justify-content: center;
-      padding-right: min(42vw, 530px);
-    }
-
-    .cover .eyebrow { color: var(--blue-300); }
-    .cover h1 { color: white; }
-    .cover .lead { color: rgba(255,255,255,.74); }
-
-    .cover-mark {
-      position: absolute;
-      top: 50%;
-      right: clamp(50px, 8vw, 110px);
-      width: clamp(240px, 29vw, 390px);
-      aspect-ratio: 1;
-      transform: translateY(-50%);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(215,173,91,.14), transparent 64%);
-    }
-
-    .cover-mark::before,
-    .cover-mark::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      border-radius: 12px;
-      background: linear-gradient(180deg, #f7e5b7, #d7ad5b);
-      box-shadow: 0 0 32px rgba(215,173,91,.22);
-      transform: translate(-50%, -50%);
-    }
-
-    .cover-mark::before { width: 48px; height: 74%; }
-    .cover-mark::after { width: 62%; height: 48px; top: 42%; }
-
-    .cover-meta {
-      display: flex;
-      gap: 18px;
-      align-items: center;
-      margin-top: 36px;
-      color: rgba(255,255,255,.55);
-      font-size: 15px;
-    }
-
-    .cover-meta span + span::before {
-      content: "";
-      display: inline-block;
-      width: 4px;
-      height: 4px;
-      margin: 0 18px 3px 0;
-      border-radius: 50%;
-      background: var(--gold);
-    }
-
-    /* Slide 2 */
-    .need-grid {
-      display: grid;
-      grid-template-columns: 1fr 90px 1fr;
-      gap: 24px;
-      align-items: stretch;
-      margin-top: 20px;
-      flex: 1;
-      min-height: 0;
-    }
-
-    .state-card {
-      display: flex;
-      flex-direction: column;
-      padding: clamp(24px, 2.8vw, 36px);
-      border: 1px solid var(--gray-200);
-      border-radius: 24px;
-      background: rgba(255,255,255,.78);
-    }
-
-    .state-card.after {
-      border-color: rgba(29,73,110,.2);
-      background: linear-gradient(145deg, #f7fbfe, #edf6fb);
-    }
-
-    .state-label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 24px;
-      font-size: 16px;
-      font-weight: 900;
-    }
-
-    .pill {
-      padding: 7px 12px;
-      border-radius: 999px;
-      color: #665021;
-      background: var(--gold-soft);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .state-card h3 {
-      margin-bottom: 18px;
-      font-size: clamp(24px, 2.3vw, 34px);
-      line-height: 1.25;
-      letter-spacing: -.03em;
-    }
-
-    .feature-list {
-      display: grid;
-      gap: 13px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      color: #506579;
-      font-size: clamp(15px, 1.4vw, 19px);
-      line-height: 1.45;
-    }
-
-    .feature-list li {
-      display: grid;
-      grid-template-columns: 22px 1fr;
-      gap: 10px;
-      align-items: start;
-    }
-
-    .feature-list li::before {
-      content: "";
-      width: 10px;
-      height: 10px;
-      margin-top: 8px;
-      border-radius: 3px;
-      background: #9da9b4;
-    }
-
-    .after .feature-list li::before { background: var(--green); }
-
-    .arrow-zone {
-      display: grid;
-      place-items: center;
-    }
-
-    .arrow {
-      display: grid;
-      place-items: center;
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      color: white;
-      background: var(--navy-700);
-      box-shadow: 0 12px 30px rgba(29,73,110,.25);
-      font-size: 28px;
-      font-weight: 700;
-    }
-
-    .goal-strip {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-top: 22px;
-      padding: 15px 20px;
-      border-left: 5px solid var(--gold);
-      border-radius: 10px 18px 18px 10px;
-      background: #fff8e7;
-      color: #59481f;
-      font-size: clamp(15px, 1.45vw, 20px);
-      font-weight: 750;
-    }
-
-    /* Slide 3 */
-    .framework-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(330px, .75fr);
-      gap: clamp(28px, 4vw, 54px);
-      flex: 1;
-      min-height: 0;
-      margin-top: 8px;
-    }
-
-    .ranking {
-      display: grid;
-      align-content: center;
-      gap: 16px;
-      padding: 12px 0;
-    }
-
-    .rank-row {
-      display: grid;
-      grid-template-columns: 116px 1fr 64px;
-      gap: 14px;
-      align-items: center;
-      font-size: 16px;
-      font-weight: 800;
-    }
-
-    .bar-track {
-      position: relative;
-      height: 18px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: #e8edf2;
-    }
-
-    .bar {
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: var(--value);
-      min-width: 6px;
-      border-radius: inherit;
-      background: #9eabb7;
-    }
-
-    .rank-row:first-child {
-      color: var(--navy-700);
-      font-size: 19px;
-    }
-
-    .rank-row:first-child .bar-track { height: 24px; }
-    .rank-row:first-child .bar {
-      background: linear-gradient(90deg, var(--navy-700), #4c91bd);
-      box-shadow: 0 0 20px rgba(76,145,189,.22);
-    }
-
-    .choice-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      overflow: hidden;
-      padding: clamp(28px, 3vw, 42px);
-      border-radius: 28px;
-      color: white;
-      background: linear-gradient(145deg, var(--navy-900), var(--navy-700));
-    }
-
-    .choice-card::after {
-      content: "W";
-      position: absolute;
-      right: -18px;
-      bottom: -55px;
-      color: rgba(255,255,255,.07);
-      font-family: Georgia, serif;
-      font-size: 260px;
-      font-weight: 800;
-    }
-
-    .big-number {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 10px;
-      color: var(--gold-soft);
-      font-size: clamp(56px, 6vw, 82px);
-      font-weight: 900;
-      letter-spacing: -.06em;
-    }
-
-    .choice-card h3 {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 20px;
-      color: white;
-      font-size: 27px;
-    }
-
-    .choice-card ul {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      gap: 13px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      color: rgba(255,255,255,.78);
-      font-size: 17px;
-      line-height: 1.4;
-    }
-
-    .choice-card li::before {
-      content: "✓";
-      margin-right: 9px;
-      color: var(--gold-soft);
-      font-weight: 900;
-    }
-
-    .source {
-      margin-top: 16px;
-      color: #75879a;
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .source a { color: inherit; }
-
-    /* Slide 4 */
-    .task-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 22px;
-      flex: 1;
-      align-content: center;
-    }
-
-    .task {
-      display: grid;
-      grid-template-columns: 48px 1fr auto;
-      gap: 17px;
-      align-items: center;
-      padding: 20px 22px;
-      border: 1px solid var(--gray-200);
-      border-radius: 20px;
-      background: rgba(255,255,255,.82);
-    }
-
-    .task:first-child {
-      grid-column: 1 / -1;
-      border-color: rgba(47,143,107,.28);
-      background: linear-gradient(100deg, var(--green-soft), #f8fffc);
-    }
-
-    .task-icon {
-      display: grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 15px;
-      color: var(--navy-700);
-      background: #e8f1f7;
-      font-size: 22px;
-      font-weight: 900;
-    }
-
-    .task:first-child .task-icon {
-      color: white;
-      background: var(--green);
-    }
-
-    .task-title {
-      margin: 0 0 4px;
-      font-size: clamp(17px, 1.55vw, 21px);
-      font-weight: 850;
-      line-height: 1.35;
-    }
-
-    .task-note {
-      margin: 0;
-      color: #718096;
-      font-size: 13px;
-    }
-
-    .status {
-      min-width: 76px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      color: #536273;
-      background: #edf1f4;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 850;
-    }
-
-    .status.done {
-      color: #176347;
-      background: #ccebdd;
-    }
-
-    /* Controls */
-    .controls {
-      position: fixed;
-      z-index: 20;
-      right: max(22px, env(safe-area-inset-right));
-      bottom: max(18px, env(safe-area-inset-bottom));
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px;
-      border: 1px solid rgba(255,255,255,.17);
-      border-radius: 999px;
-      background: rgba(4,16,27,.58);
-      box-shadow: 0 12px 35px rgba(0,0,0,.18);
-      backdrop-filter: blur(16px);
-    }
-
-    .control-button {
-      display: grid;
-      place-items: center;
-      width: 42px;
-      height: 42px;
-      border: 0;
-      border-radius: 50%;
-      color: white;
-      background: rgba(255,255,255,.1);
-      cursor: pointer;
-      transition: background .2s ease, transform .2s ease;
-    }
-
-    .control-button:hover { background: rgba(255,255,255,.2); }
-    .control-button:active { transform: scale(.95); }
-    .control-button:disabled { opacity: .3; cursor: default; }
-
-    .counter {
-      min-width: 56px;
-      color: rgba(255,255,255,.76);
-      text-align: center;
-      font-size: 13px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .progress {
-      position: fixed;
-      z-index: 30;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 4px;
-      background: rgba(255,255,255,.12);
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 25%;
-      background: linear-gradient(90deg, var(--gold), #f2dfae);
-      transition: width .4s ease;
-    }
-
-    .hint {
-      position: fixed;
-      z-index: 20;
-      left: max(24px, env(safe-area-inset-left));
-      bottom: max(28px, env(safe-area-inset-bottom));
-      color: rgba(255,255,255,.46);
-      font-size: 12px;
-    }
-
-    @media (max-width: 880px) {
-      .slide { padding: 12px; }
-      .canvas {
-        height: calc(100vh - 24px);
-        min-height: 0;
-        border-radius: 22px;
-      }
-      .slide-inner { padding: 32px 26px 82px; }
-      .cover .slide-inner { padding-right: 26px; justify-content: flex-end; }
-      .cover-mark { top: 34%; right: 50%; transform: translate(50%, -50%); width: 220px; }
-      .cover .lead { max-width: 600px; }
-      .cover-meta { flex-wrap: wrap; }
-      .need-grid { grid-template-columns: 1fr; gap: 12px; overflow: auto; }
-      .arrow-zone { display: none; }
-      .state-card { padding: 20px; }
-      .goal-strip { margin-top: 12px; }
-      .framework-layout { grid-template-columns: 1fr; overflow: auto; }
-      .choice-card { min-height: 260px; }
-      .task-grid { grid-template-columns: 1fr; overflow: auto; align-content: start; }
-      .task:first-child { grid-column: auto; }
-      .task { grid-template-columns: 42px 1fr auto; padding: 16px; }
-      .task-icon { width: 42px; height: 42px; }
-      .hint { display: none; }
-    }
-
-    @media (max-height: 650px) and (min-width: 881px) {
-      .slide-inner { padding-top: 38px; padding-bottom: 38px; }
-      h2 { font-size: 40px; }
-      .lead { font-size: 18px; }
-      .need-grid { margin-top: 8px; }
-      .feature-list { gap: 8px; font-size: 15px; }
-      .state-card { padding: 22px; }
-      .task { padding: 13px 18px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .slide,
-      .progress-bar { transition: none; }
-    }
+      --navy-950:#071521; --navy-900:#0b1f33; --navy-800:#12324f; --navy-700:#1d496e;
+      --blue:#4c91bd; --cream:#fffdf8; --gold:#d7ad5b; --gold-soft:#f2dfae;
+      --green:#2f8f6b; --green-soft:#dff3ea; --gray:#718096; --line:#dce3ea;
+      --shadow:0 24px 70px rgba(2,15,28,.22);
+    }
+    *{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--navy-950);color:var(--navy-900);font-family:Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;word-break:keep-all}
+    a,button{font:inherit}
+    .deck{position:relative;width:100%;height:100%;isolation:isolate}
+    .deck::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 15% 20%,rgba(155,201,228,.2),transparent 34%),radial-gradient(circle at 82% 76%,rgba(215,173,91,.18),transparent 28%),linear-gradient(145deg,#06121f 0%,#0b2238 52%,#102d49 100%)}
+    .deck::after{content:"";position:fixed;inset:0;z-index:-1;opacity:.15;background-image:linear-gradient(30deg,transparent 48%,rgba(255,255,255,.22) 49%,transparent 50%),linear-gradient(150deg,transparent 48%,rgba(255,255,255,.12) 49%,transparent 50%);background-size:80px 138px}
+    .slide{position:absolute;inset:0;display:grid;place-items:center;padding:clamp(18px,4vw,58px);opacity:0;visibility:hidden;transform:translateX(5%) scale(.985);transition:opacity .42s ease,transform .52s cubic-bezier(.2,.75,.2,1),visibility 0s linear .52s}
+    .slide.active{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+    .slide.before{transform:translateX(-5%) scale(.985)}
+    .canvas{position:relative;width:min(1280px,100%);height:min(720px,calc(100vh - 36px));min-height:560px;overflow:hidden;border:1px solid rgba(255,255,255,.2);border-radius:clamp(22px,2vw,34px);background:rgba(255,253,248,.98);box-shadow:var(--shadow)}
+    .canvas::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.23;background-image:radial-gradient(rgba(11,31,51,.16) .65px,transparent .65px);background-size:18px 18px;mask-image:linear-gradient(to bottom,#000,transparent 55%)}
+    .inner{position:relative;z-index:1;display:flex;flex-direction:column;height:100%;padding:clamp(36px,5vw,70px)}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;width:fit-content;margin:0 0 14px;color:var(--navy-700);font-size:clamp(13px,1.2vw,17px);font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .eyebrow::before{content:"";width:28px;height:3px;border-radius:99px;background:var(--gold)}
+    h1,h2,h3,p{margin-top:0} h1{margin-bottom:24px;font-size:clamp(48px,6.8vw,94px);line-height:1.04;letter-spacing:-.055em} h2{margin-bottom:13px;font-size:clamp(34px,4.2vw,58px);line-height:1.1;letter-spacing:-.045em}
+    .lead{max-width:920px;color:#3b5165;font-size:clamp(18px,1.9vw,25px);line-height:1.58}.accent{color:var(--navy-700)}
+
+    /* 표지 */
+    .cover .canvas{color:#fff;background:linear-gradient(110deg,rgba(7,21,33,.99),rgba(11,31,51,.96) 56%,rgba(19,56,87,.9))}
+    .cover .canvas::before{opacity:.25;background-image:linear-gradient(60deg,transparent 47%,rgba(255,255,255,.2) 48%,transparent 49%),linear-gradient(120deg,transparent 47%,rgba(255,255,255,.12) 48%,transparent 49%);background-size:110px 190px;mask-image:none}
+    .cover .inner{justify-content:center;padding-right:min(42vw,530px)} .cover .eyebrow{color:#9bc9e4}.cover h1{color:#fff}.cover .lead{color:rgba(255,255,255,.74)}
+    .cross{position:absolute;top:50%;right:clamp(50px,8vw,110px);width:clamp(240px,29vw,390px);aspect-ratio:1;transform:translateY(-50%);border:1px solid rgba(255,255,255,.18);border-radius:50%;background:radial-gradient(circle,rgba(215,173,91,.14),transparent 64%)}
+    .cross::before,.cross::after{content:"";position:absolute;left:50%;top:50%;border-radius:12px;background:linear-gradient(180deg,#f7e5b7,#d7ad5b);box-shadow:0 0 32px rgba(215,173,91,.22);transform:translate(-50%,-50%)}.cross::before{width:48px;height:74%}.cross::after{width:62%;height:48px;top:42%}
+    .meta{display:flex;gap:18px;margin-top:32px;color:rgba(255,255,255,.55);font-size:15px}.meta span+span::before{content:"·";margin-right:18px;color:var(--gold)}
+
+    /* 개편 필요성 */
+    .need-grid{display:grid;grid-template-columns:1fr 74px 1fr;gap:20px;align-items:stretch;margin-top:18px;flex:1;min-height:0}
+    .state{display:flex;flex-direction:column;padding:clamp(23px,2.7vw,35px);border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.8)}.state.after{border-color:rgba(29,73,110,.2);background:linear-gradient(145deg,#f7fbfe,#edf6fb)}
+    .state-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;font-weight:900}.pill{padding:7px 12px;border-radius:999px;color:#665021;background:var(--gold-soft);font-size:13px}.state h3{margin-bottom:16px;font-size:clamp(23px,2.2vw,33px);line-height:1.25;letter-spacing:-.03em}
+    .feature-list{display:grid;gap:12px;margin:0;padding:0;list-style:none;color:#506579;font-size:clamp(15px,1.35vw,19px);line-height:1.45}.feature-list li{display:grid;grid-template-columns:18px 1fr;gap:8px}.feature-list li::before{content:"";width:10px;height:10px;margin-top:8px;border-radius:3px;background:#9da9b4}.after .feature-list li::before{background:var(--green)}
+    .arrow-zone{display:grid;place-items:center}.arrow{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;color:#fff;background:var(--navy-700);font-size:27px;box-shadow:0 12px 30px rgba(29,73,110,.25)}
+    .goal{display:flex;align-items:center;gap:16px;margin-top:20px;padding:14px 20px;border-left:5px solid var(--gold);border-radius:10px 18px 18px 10px;background:#fff8e7;color:#59481f;font-size:clamp(15px,1.42vw,20px);font-weight:750}
+
+    /* 프레임워크 */
+    .framework{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(330px,.75fr);gap:clamp(28px,4vw,54px);flex:1;min-height:0;margin-top:8px}.ranking{display:grid;align-content:center;gap:16px;padding:12px 0}.rank{display:grid;grid-template-columns:116px 1fr 64px;gap:14px;align-items:center;font-size:16px;font-weight:800}.track{position:relative;height:18px;overflow:hidden;border-radius:999px;background:#e8edf2}.bar{position:absolute;inset:0 auto 0 0;width:var(--value);min-width:6px;border-radius:inherit;background:#9eabb7}.rank:first-child{color:var(--navy-700);font-size:19px}.rank:first-child .track{height:24px}.rank:first-child .bar{background:linear-gradient(90deg,var(--navy-700),#4c91bd)}
+    .choice{position:relative;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:clamp(28px,3vw,42px);border-radius:28px;color:#fff;background:linear-gradient(145deg,var(--navy-900),var(--navy-700))}.choice::after{content:"W";position:absolute;right:-18px;bottom:-58px;color:rgba(255,255,255,.07);font-family:Georgia,serif;font-size:260px;font-weight:800}.big{position:relative;z-index:1;margin-bottom:10px;color:var(--gold-soft);font-size:clamp(56px,6vw,82px);font-weight:900;letter-spacing:-.06em}.choice h3,.choice ul{position:relative;z-index:1}.choice h3{margin-bottom:20px;color:#fff;font-size:27px}.choice ul{display:grid;gap:13px;margin:0;padding:0;list-style:none;color:rgba(255,255,255,.78);font-size:17px}.choice li::before{content:"✓";margin-right:9px;color:var(--gold-soft);font-weight:900}.source{margin-top:15px;color:#75879a;font-size:12px;line-height:1.5}.source a{color:inherit}
+
+    /* 할 일 */
+    .tasks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:20px;flex:1;align-content:center}.task{display:grid;grid-template-columns:48px 1fr auto;gap:16px;align-items:center;padding:19px 21px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.82)}.task:first-child{grid-column:1/-1;border-color:rgba(47,143,107,.28);background:linear-gradient(100deg,var(--green-soft),#f8fffc)}
+    .task-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;color:var(--navy-700);background:#e8f1f7;font-size:22px;font-weight:900}.task:first-child .task-icon{color:#fff;background:var(--green)}.task-title{margin:0 0 4px;font-size:clamp(17px,1.5vw,21px);font-weight:850}.task-note{margin:0;color:var(--gray);font-size:13px}.status{min-width:76px;padding:8px 12px;border-radius:999px;color:#536273;background:#edf1f4;text-align:center;font-size:13px;font-weight:850}.status.done{color:#176347;background:#ccebdd}
+
+    /* 테마 선택 */
+    .theme-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;flex:1;align-items:stretch;margin-top:22px}.theme-card{position:relative;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;padding:clamp(26px,3.2vw,42px);border-radius:28px;text-decoration:none;transition:transform .22s ease,box-shadow .22s ease}.theme-card:hover{transform:translateY(-5px);box-shadow:0 24px 48px rgba(2,15,28,.18)}
+    .theme-card.paid{color:#fff;background:linear-gradient(145deg,#172026,#29353c)}.theme-card.free{color:var(--navy-900);border:1px solid #cddfe9;background:linear-gradient(145deg,#f8fcff,#e7f3fa)}
+    .type-badge{display:inline-flex;width:fit-content;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:900}.paid .type-badge{color:#1d2a20;background:#b6d68b}.free .type-badge{color:#155879;background:#cbe9f8}
+    .brand-area{display:flex;align-items:center;min-height:142px}.themeforest-logo{display:block;width:min(360px,85%);height:auto}.wp-mark{display:grid;place-items:center;width:118px;height:118px;border:7px solid #2271b1;border-radius:50%;color:#2271b1;background:#fff;font-family:Georgia,serif;font-size:72px;font-weight:700;line-height:1}
+    .theme-card h3{margin:0 0 10px;font-size:clamp(27px,2.7vw,38px);letter-spacing:-.04em}.theme-card p{margin:0 0 18px;max-width:520px;line-height:1.55}.paid p{color:rgba(255,255,255,.68)}.free p{color:#547087}.visit{display:flex;align-items:center;justify-content:space-between;padding-top:18px;border-top:1px solid rgba(255,255,255,.16);font-size:15px;font-weight:850}.free .visit{border-color:#c8dce8}.url{opacity:.72;font-size:13px}.theme-note{margin-top:18px;color:#667a8b;font-size:15px;line-height:1.55}
+
+    /* 조작 */
+    .controls{position:fixed;z-index:20;right:max(22px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:10px;padding:8px;border:1px solid rgba(255,255,255,.17);border-radius:999px;background:rgba(4,16,27,.6);backdrop-filter:blur(16px)}.ctrl{display:grid;place-items:center;width:42px;height:42px;border:0;border-radius:50%;color:#fff;background:rgba(255,255,255,.1);cursor:pointer}.ctrl:hover{background:rgba(255,255,255,.2)}.ctrl:disabled{opacity:.3;cursor:default}.counter{min-width:56px;color:rgba(255,255,255,.76);text-align:center;font-size:13px;font-variant-numeric:tabular-nums}.progress{position:fixed;z-index:30;left:0;bottom:0;width:100%;height:4px;background:rgba(255,255,255,.12)}.progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-soft));transition:width .4s ease}.hint{position:fixed;z-index:20;left:24px;bottom:28px;color:rgba(255,255,255,.46);font-size:12px}
+
+    @media(max-width:880px){.slide{padding:12px}.canvas{height:calc(100vh - 24px);min-height:0;border-radius:22px}.inner{padding:31px 25px 80px}.cover .inner{padding-right:25px;justify-content:flex-end}.cross{top:34%;right:50%;width:210px;transform:translate(50%,-50%)}.need-grid,.framework,.theme-options{grid-template-columns:1fr;overflow:auto}.arrow-zone{display:none}.state{padding:20px}.goal{margin-top:12px}.choice{min-height:250px}.tasks{grid-template-columns:1fr;overflow:auto;align-content:start}.task:first-child{grid-column:auto}.task{grid-template-columns:42px 1fr auto;padding:15px}.task-icon{width:42px;height:42px}.theme-card{min-height:360px}.brand-area{min-height:100px}.wp-mark{width:90px;height:90px;border-width:6px;font-size:54px}.hint{display:none}}
+    @media(max-height:650px) and (min-width:881px){.inner{padding-top:36px;padding-bottom:36px}h2{font-size:40px}.lead{font-size:18px}.feature-list{gap:8px;font-size:15px}.state{padding:21px}.task{padding:12px 17px}.brand-area{min-height:100px}.theme-card{padding:25px}}
+    @media(prefers-reduced-motion:reduce){.slide,.progress-bar,.theme-card{transition:none}}
   </style>
 </head>
 <body>
   <main class="deck" aria-live="polite">
-    <section class="slide cover is-active" aria-label="표지">
-      <div class="canvas">
-        <div class="slide-inner">
-          <p class="eyebrow">Website Renewal Proposal</p>
-          <h1>인천성산교회<br />웹페이지</h1>
-          <p class="lead">교회 앱과 연결되고, 필요한 기능을 스스로 확장해 가는 새로운 온라인 사역 기반</p>
-          <div class="cover-meta">
-            <span>웹사이트 개편 제안</span>
-            <span>2026</span>
-          </div>
-        </div>
-        <div class="cover-mark" aria-hidden="true"></div>
-      </div>
+    <section class="slide cover active" aria-label="표지">
+      <div class="canvas"><div class="inner"><p class="eyebrow">Website Renewal Proposal</p><h1>인천성산교회<br>웹페이지</h1><p class="lead">교회 앱과 연결되고, 필요한 기능을 스스로 확장해 가는 새로운 온라인 사역 기반</p><div class="meta"><span>웹사이트 개편 제안</span><span>2026</span></div></div><div class="cross" aria-hidden="true"></div></div>
     </section>
 
     <section class="slide" aria-label="개편의 필요성">
-      <div class="canvas">
-        <div class="slide-inner">
-          <p class="eyebrow">01 · Why Renewal</p>
-          <h2>개편의 필요성</h2>
-          <p class="lead">외부 제공 기능에 맞추는 홈페이지에서, <strong class="accent">교회가 직접 만들고 관리하는 디지털 사역 플랫폼</strong>으로 전환합니다.</p>
-
-          <div class="need-grid">
-            <article class="state-card before">
-              <div class="state-label"><span>기존 홈페이지</span><span class="pill">제약 중심</span></div>
-              <h3>외부 프레임워크의 범위 안에서만 운영</h3>
-              <ul class="feature-list">
-                <li>제공되는 게시판과 기능에 의존</li>
-                <li>새로운 기능 추가와 화면 개선에 한계</li>
-                <li>교회 앱·외부 서비스와의 연동이 어려움</li>
-                <li>변경 요청마다 외부 관리 절차 필요</li>
-              </ul>
-            </article>
-
-            <div class="arrow-zone" aria-hidden="true"><div class="arrow">→</div></div>
-
-            <article class="state-card after">
-              <div class="state-label"><span>새 홈페이지</span><span class="pill">확장 중심</span></div>
-              <h3>교회가 직접 관리하고 창의적으로 확장</h3>
-              <ul class="feature-list">
-                <li>교회 앱과 콘텐츠·기능을 자연스럽게 연결</li>
-                <li>공간 사용 신청 등 교회 맞춤 기능 구현</li>
-                <li>영상·사진 공유 방식의 자유로운 설계</li>
-                <li>필요에 따라 기능을 지속적으로 추가</li>
-              </ul>
-            </article>
-          </div>
-
-          <div class="goal-strip"><strong>목표</strong><span>독자적이고 창의적인 기능을 제공하며, 교회가 자체적으로 관리할 수 있는 홈페이지 구축</span></div>
-        </div>
-      </div>
+      <div class="canvas"><div class="inner"><p class="eyebrow">01 · Why Renewal</p><h2>개편의 필요성</h2><p class="lead">외부 제공 기능에 맞추는 홈페이지에서, <strong class="accent">교회가 직접 만들고 관리하는 디지털 사역 플랫폼</strong>으로 전환합니다.</p>
+        <div class="need-grid">
+          <article class="state"><div class="state-head"><span>기존 홈페이지</span><span class="pill">제약 중심</span></div><h3>외부 프레임워크의 범위 안에서만 운영</h3><ul class="feature-list"><li>제공되는 게시판과 기능에 의존</li><li>새로운 기능 추가와 화면 개선에 한계</li><li>교회 앱·외부 서비스와의 연동이 어려움</li><li>변경 요청마다 외부 관리 절차 필요</li></ul></article>
+          <div class="arrow-zone" aria-hidden="true"><div class="arrow">→</div></div>
+          <article class="state after"><div class="state-head"><span>새 홈페이지</span><span class="pill">확장 중심</span></div><h3>교회가 직접 관리하고 창의적으로 확장</h3><ul class="feature-list"><li>교회 앱과 콘텐츠·기능을 자연스럽게 연결</li><li>공간 사용 신청 등 교회 맞춤 기능 구현</li><li>영상·사진 공유 방식의 자유로운 설계</li><li>필요에 따라 기능을 지속적으로 추가</li></ul></article>
+        </div><div class="goal"><strong>목표</strong><span>독자적이고 창의적인 기능을 제공하며, 교회가 자체적으로 관리할 수 있는 홈페이지 구축</span></div>
+      </div></div>
     </section>
 
     <section class="slide" aria-label="홈페이지 프레임워크 선택">
-      <div class="canvas">
-        <div class="slide-inner">
-          <p class="eyebrow">02 · Platform</p>
-          <h2>홈페이지 프레임워크 선택</h2>
-          <p class="lead">운영 편의성, 확장성, 생태계를 종합해 <strong class="accent">WordPress</strong>를 선택했습니다.</p>
-
-          <div class="framework-layout">
-            <div>
-              <div class="ranking" aria-label="CMS 시장 점유율 순위">
-                <div class="rank-row"><span>1. WordPress</span><div class="bar-track"><div class="bar" style="--value: 100%"></div></div><strong>59.1%</strong></div>
-                <div class="rank-row"><span>2. Shopify</span><div class="bar-track"><div class="bar" style="--value: 12.9%"></div></div><strong>7.6%</strong></div>
-                <div class="rank-row"><span>3. Wix</span><div class="bar-track"><div class="bar" style="--value: 10.3%"></div></div><strong>6.1%</strong></div>
-                <div class="rank-row"><span>4. Squarespace</span><div class="bar-track"><div class="bar" style="--value: 5.9%"></div></div><strong>3.5%</strong></div>
-                <div class="rank-row"><span>5. Joomla</span><div class="bar-track"><div class="bar" style="--value: 2.9%"></div></div><strong>1.7%</strong></div>
-              </div>
-              <p class="source">CMS가 확인된 웹사이트 기준 시장 점유율. WordPress는 전체 웹사이트의 41.2%에서도 사용됩니다.<br />출처: <a href="https://w3techs.com/technologies/overview/content_management" target="_blank" rel="noreferrer">W3Techs, 2026-07-16</a></p>
-            </div>
-
-            <aside class="choice-card">
-              <div class="big-number">No. 1</div>
-              <h3>가장 널리 쓰이는 CMS</h3>
-              <ul>
-                <li>풍부한 테마와 플러그인 생태계</li>
-                <li>비개발자도 콘텐츠를 쉽게 관리</li>
-                <li>예약·영상·사진 등 맞춤 기능 확장</li>
-                <li>자료와 운영 경험을 찾기 쉬움</li>
-              </ul>
-            </aside>
-          </div>
-        </div>
-      </div>
+      <div class="canvas"><div class="inner"><p class="eyebrow">02 · Platform</p><h2>홈페이지 프레임워크 선택</h2><p class="lead">운영 편의성, 확장성, 생태계를 종합해 <strong class="accent">WordPress</strong>를 선택했습니다.</p>
+        <div class="framework"><div><div class="ranking" aria-label="CMS 시장 점유율 순위">
+          <div class="rank"><span>1. WordPress</span><div class="track"><div class="bar" style="--value:100%"></div></div><strong>59.1%</strong></div>
+          <div class="rank"><span>2. Shopify</span><div class="track"><div class="bar" style="--value:12.9%"></div></div><strong>7.6%</strong></div>
+          <div class="rank"><span>3. Wix</span><div class="track"><div class="bar" style="--value:10.3%"></div></div><strong>6.1%</strong></div>
+          <div class="rank"><span>4. Squarespace</span><div class="track"><div class="bar" style="--value:5.9%"></div></div><strong>3.5%</strong></div>
+          <div class="rank"><span>5. Joomla</span><div class="track"><div class="bar" style="--value:2.9%"></div></div><strong>1.7%</strong></div>
+        </div><p class="source">CMS가 확인된 웹사이트 기준 시장 점유율. WordPress는 전체 웹사이트의 41.2%에서도 사용됩니다.<br>출처: <a href="https://w3techs.com/technologies/overview/content_management" target="_blank" rel="noreferrer">W3Techs, 2026-07-16</a></p></div>
+        <aside class="choice"><div class="big">No. 1</div><h3>가장 널리 쓰이는 CMS</h3><ul><li>풍부한 테마와 플러그인 생태계</li><li>비개발자도 콘텐츠를 쉽게 관리</li><li>예약·영상·사진 등 맞춤 기능 확장</li><li>자료와 운영 경험을 찾기 쉬움</li></ul></aside></div>
+      </div></div>
     </section>
 
     <section class="slide" aria-label="할 일">
-      <div class="canvas">
-        <div class="slide-inner">
-          <p class="eyebrow">03 · Roadmap</p>
-          <h2>할 일</h2>
-          <p class="lead">기반 구축은 완료했습니다. 이제 디자인과 콘텐츠, 교회 맞춤 기능을 순차적으로 완성합니다.</p>
-
-          <div class="task-grid">
-            <article class="task">
-              <div class="task-icon">✓</div>
-              <div><p class="task-title">호스팅 및 워드프레스 설치</p><p class="task-note">새 홈페이지 제작을 위한 기본 환경 구축</p></div>
-              <span class="status done">완료</span>
-            </article>
-
-            <article class="task">
-              <div class="task-icon">1</div>
-              <div><p class="task-title">워드프레스 테마 선택 및 설치</p><p class="task-note">교회 이미지와 운영 방식에 맞는 디자인 선정</p></div>
-              <span class="status">진행 예정</span>
-            </article>
-
-            <article class="task">
-              <div class="task-icon">2</div>
-              <div><p class="task-title">기존 페이지 내용 복제</p><p class="task-note">예배 안내·교회 소개·게시물 등 이전</p></div>
-              <span class="status">진행 예정</span>
-            </article>
-
-            <article class="task">
-              <div class="task-icon">3</div>
-              <div><p class="task-title">영상 및 사진 공유 방안 마련</p><p class="task-note">YouTube 및 외부 사진 저장소 연동 검토</p></div>
-              <span class="status">진행 예정</span>
-            </article>
-
-            <article class="task">
-              <div class="task-icon">4</div>
-              <div><p class="task-title">공간 사용 신청 기능 추가</p><p class="task-note">신청·승인·일정 확인이 가능한 맞춤 기능</p></div>
-              <span class="status">진행 예정</span>
-            </article>
-          </div>
+      <div class="canvas"><div class="inner"><p class="eyebrow">03 · Roadmap</p><h2>할 일</h2><p class="lead">기반 구축은 완료했습니다. 이제 디자인과 콘텐츠, 교회 맞춤 기능을 순차적으로 완성합니다.</p>
+        <div class="tasks">
+          <article class="task"><div class="task-icon">✓</div><div><p class="task-title">호스팅 및 워드프레스 설치</p><p class="task-note">새 홈페이지 제작을 위한 기본 환경 구축</p></div><span class="status done">완료</span></article>
+          <article class="task"><div class="task-icon">1</div><div><p class="task-title">워드프레스 테마 선택 및 설치</p><p class="task-note">교회 이미지와 운영 방식에 맞는 디자인 선정</p></div><span class="status">진행 예정</span></article>
+          <article class="task"><div class="task-icon">2</div><div><p class="task-title">기존 페이지 내용 복제</p><p class="task-note">예배 안내·교회 소개·게시물 등 이전</p></div><span class="status">진행 예정</span></article>
+          <article class="task"><div class="task-icon">3</div><div><p class="task-title">영상 및 사진 공유 방안 마련</p><p class="task-note">YouTube 및 외부 사진 저장소 연동 검토</p></div><span class="status">진행 예정</span></article>
+          <article class="task"><div class="task-icon">4</div><div><p class="task-title">공간 사용 신청 기능 추가</p><p class="task-note">신청·승인·일정 확인이 가능한 맞춤 기능</p></div><span class="status">진행 예정</span></article>
         </div>
-      </div>
+      </div></div>
+    </section>
+
+    <section class="slide" aria-label="워드프레스 테마 선택 및 설치">
+      <div class="canvas"><div class="inner"><p class="eyebrow">04 · Theme Selection</p><h2>워드프레스 테마 선택 및 설치</h2><p class="lead">유료·무료 테마를 함께 검토하고, 교회 홈페이지에 적합한 디자인과 기능을 비교해 선택합니다.</p>
+        <div class="theme-options">
+          <a class="theme-card paid" href="https://themeforest.net/category/wordpress" target="_blank" rel="noreferrer" aria-label="ThemeForest 워드프레스 유료 테마 사이트 열기">
+            <span class="type-badge">유료 테마 사이트</span>
+            <div class="brand-area"><img class="themeforest-logo" src="https://assets.market-storefront.envato-static.com/storefront/assets/logos/themeforest-15052b5a8846d9acfb6183725cf28b5a4218288c307e0cd3628e9b7631e6dd0e.png" alt="ThemeForest 로고"></div>
+            <div><h3>ThemeForest</h3><p>다양한 제작사의 프리미엄 워드프레스 테마를 디자인, 기능, 판매량, 평가 기준으로 비교할 수 있습니다.</p><div class="visit"><span>사이트 바로가기 ↗</span><span class="url">themeforest.net</span></div></div>
+          </a>
+          <a class="theme-card free" href="https://ko.wordpress.org/themes/" target="_blank" rel="noreferrer" aria-label="WordPress.org 무료 테마 사이트 열기">
+            <span class="type-badge">무료 테마 사이트</span>
+            <div class="brand-area"><div class="wp-mark" aria-hidden="true">W</div></div>
+            <div><h3>WordPress.org 테마</h3><p>워드프레스 공식 디렉터리에서 무료 테마를 검색하고, 미리보기와 사용자 평가를 확인할 수 있습니다.</p><div class="visit"><span>사이트 바로가기 ↗</span><span class="url">ko.wordpress.org/themes</span></div></div>
+          </a>
+        </div>
+        <p class="theme-note"><strong>선택 기준:</strong> 교회 분위기에 맞는 디자인 · 모바일 화면 완성도 · 한글 지원 · 업데이트와 제작사 지원 · 페이지 편집 편의성</p>
+      </div></div>
     </section>
   </main>
 
   <div class="hint">← → 방향키 또는 화면을 좌우로 밀어 이동</div>
-
-  <nav class="controls" aria-label="슬라이드 이동">
-    <button class="control-button" id="prev" type="button" aria-label="이전 슬라이드">←</button>
-    <div class="counter"><span id="current">1</span> / <span id="total">4</span></div>
-    <button class="control-button" id="next" type="button" aria-label="다음 슬라이드">→</button>
-  </nav>
-
+  <nav class="controls" aria-label="슬라이드 이동"><button class="ctrl" id="prev" type="button" aria-label="이전 슬라이드">←</button><div class="counter"><span id="current">1</span> / <span id="total">5</span></div><button class="ctrl" id="next" type="button" aria-label="다음 슬라이드">→</button></nav>
   <div class="progress" aria-hidden="true"><div class="progress-bar" id="progress"></div></div>
-
   <script>
-    (() => {
-      const slides = [...document.querySelectorAll('.slide')];
-      const prevButton = document.getElementById('prev');
-      const nextButton = document.getElementById('next');
-      const currentText = document.getElementById('current');
-      const totalText = document.getElementById('total');
-      const progress = document.getElementById('progress');
-      let index = Math.max(0, Math.min(slides.length - 1, Number(location.hash.slice(1)) - 1 || 0));
-      let touchStartX = 0;
-
-      totalText.textContent = slides.length;
-
-      function render(updateHash = true) {
-        slides.forEach((slide, slideIndex) => {
-          slide.classList.toggle('is-active', slideIndex === index);
-          slide.classList.toggle('is-before', slideIndex < index);
-          slide.setAttribute('aria-hidden', slideIndex === index ? 'false' : 'true');
-        });
-        currentText.textContent = index + 1;
-        progress.style.width = `${((index + 1) / slides.length) * 100}%`;
-        prevButton.disabled = index === 0;
-        nextButton.disabled = index === slides.length - 1;
-        if (updateHash) history.replaceState(null, '', `#${index + 1}`);
-        document.title = `${slides[index].getAttribute('aria-label')} | 인천성산교회 웹페이지`;
-      }
-
-      function move(delta) {
-        const nextIndex = Math.max(0, Math.min(slides.length - 1, index + delta));
-        if (nextIndex === index) return;
-        index = nextIndex;
-        render();
-      }
-
-      prevButton.addEventListener('click', () => move(-1));
-      nextButton.addEventListener('click', () => move(1));
-
-      document.addEventListener('keydown', (event) => {
-        if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(event.key)) {
-          event.preventDefault();
-          move(1);
-        }
-        if (['ArrowLeft', 'PageUp', 'Backspace'].includes(event.key)) {
-          event.preventDefault();
-          move(-1);
-        }
-        if (event.key === 'Home') { index = 0; render(); }
-        if (event.key === 'End') { index = slides.length - 1; render(); }
-      });
-
-      document.addEventListener('touchstart', (event) => {
-        touchStartX = event.changedTouches[0].clientX;
-      }, { passive: true });
-
-      document.addEventListener('touchend', (event) => {
-        const distance = event.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(distance) < 55) return;
-        move(distance < 0 ? 1 : -1);
-      }, { passive: true });
-
-      window.addEventListener('hashchange', () => {
-        const requested = Number(location.hash.slice(1)) - 1;
-        if (Number.isInteger(requested) && requested >= 0 && requested < slides.length) {
-          index = requested;
-          render(false);
-        }
-      });
-
-      render(false);
-    })();
+    (()=>{const slides=[...document.querySelectorAll('.slide')],prev=document.getElementById('prev'),next=document.getElementById('next'),current=document.getElementById('current'),total=document.getElementById('total'),progress=document.getElementById('progress');let index=Math.max(0,Math.min(slides.length-1,Number(location.hash.slice(1))-1||0)),startX=0;total.textContent=slides.length;
+      function render(hash=true){slides.forEach((s,i)=>{s.classList.toggle('active',i===index);s.classList.toggle('before',i<index);s.setAttribute('aria-hidden',i===index?'false':'true')});current.textContent=index+1;progress.style.width=`${(index+1)/slides.length*100}%`;prev.disabled=index===0;next.disabled=index===slides.length-1;if(hash)history.replaceState(null,'',`#${index+1}`);document.title=`${slides[index].getAttribute('aria-label')} | 인천성산교회 웹페이지`}
+      function move(d){const n=Math.max(0,Math.min(slides.length-1,index+d));if(n!==index){index=n;render()}}
+      prev.onclick=()=>move(-1);next.onclick=()=>move(1);document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();move(1)}if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();move(-1)}if(e.key==='Home'){index=0;render()}if(e.key==='End'){index=slides.length-1;render()}});document.addEventListener('touchstart',e=>startX=e.changedTouches[0].clientX,{passive:true});document.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-startX;if(Math.abs(d)>55)move(d<0?1:-1)},{passive:true});window.addEventListener('hashchange',()=>{const n=Number(location.hash.slice(1))-1;if(Number.isInteger(n)&&n>=0&&n<slides.length){index=n;render(false)}});render(false)})();
   </script>
 </body>
 </html>
